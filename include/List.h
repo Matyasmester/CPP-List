@@ -76,7 +76,7 @@ class List
         }
 
         /** Loops through the given vector<t>'s elements, and adds them each to the end of the List.
-            First checks if the vector fits, and if it doesn't, it doubles the capacity of the List. **/
+            First checks if the vector fits, and if it doesn't, reserves 1.25x enough space for it. **/
         void Add(vector<T> toAdd){
             unsigned short ArraySize = toAdd.size();
             unsigned short ItemCount = Size;
@@ -85,7 +85,7 @@ class List
             unsigned short totalsize = ItemCount + ArraySize;
 
             if(totalsize > maxitems){
-                _items.reserve(maxitems * 2);
+                _items.reserve(totalsize * 1.25);
             }
 
             for(T item : toAdd){
