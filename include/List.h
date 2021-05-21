@@ -47,7 +47,6 @@ class List
                 vect->at(j) = Temp;
                 j--;
                 i++;
-
             }
             return i;
         }
@@ -199,8 +198,11 @@ class List
             return _items[0];
         }
 
+        /** Returns the element at the specified index.
+            Returns EMPTY (0) if the index is out of bounds. **/
         T At(int i){
-            return this[i];
+            if(i > _items.capacity() || i < 0) return EMPTY;
+            return _items[i];
         }
 
         bool IsEmpty(){
@@ -259,11 +261,8 @@ class List
             return Intersection;
         }
 
-        /** Returns the element at the specified index.
-            Returns EMPTY (0) if the index is out of bounds. **/
         T operator[](int i){
-            if(i > _items.capacity() || i < 0) return EMPTY;
-            return _items[i];
+            return At(i);
         }
 
 };

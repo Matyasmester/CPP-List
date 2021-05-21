@@ -11,6 +11,10 @@ void Print(char val){
     cout << val << " ";
 }
 
+void Print(double val){
+    cout << val << " ";
+}
+
 int main()
 {
     /*vector<char> arr = {'a', 'b', 'c', 'f', 'g', 'h', 'i', 'j', 'k', 'a', 'b', 'c', 'f', 'g', 'h', 'i', 'j', 'k', '4', '8', '9'};
@@ -51,15 +55,15 @@ int main()
 
     delete &MyList;*/
 
-    List<int> numList;
-    numList.Add(2);
-    numList.Add(6);
-    numList.Add(5);             // Sorting unit tests
-    numList.Add(3);
-    numList.Add(8);
-    numList.Add(7);
-    numList.Add(1);
-    numList.Add(0);
+    List<double> numList;
+    numList.Add(2.6);
+    numList.Add(6.9);
+    numList.Add(5.1);             // Sorting unit tests
+    numList.Add(3.1);
+    numList.Add(8.6);
+    numList.Add(7.7);
+    numList.Add(1.8);
+    numList.Add(0.3);
     numList.Sort();
     numList.ForEach(Print);
 
