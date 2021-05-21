@@ -1,6 +1,7 @@
 #include <vector>
 #include <algorithm>
 #include <set>
+#include <typeindex>
 #ifndef LIST_H
 #define LIST_H
 #define EMPTY 0
@@ -10,13 +11,54 @@ using namespace std;
 template <typename T>
 class List
 {
-    /*An attempt at making the C# class List<T> in C++.*/
+    /*An attempt at making a C#-like class List<T> in C++.*/
     private:
         const unsigned char _defaultSize = 10;
         unsigned short Size = _defaultSize;
+
+        vector<type_index> typevect{typeid(int), typeid(short), typeid(long), typeid(double), typeid(float), typeid(char)};
+
         vector<T> _items;
 
         void UpdateSize(){Size = _items.size();};
+
+        int GetIndex(vector<T>* vect, T item){
+            return find(vect->begin(), vect->end(), item) - vect->begin();
+        }
+
+        bool IsNumericList(){
+            type_index type = typeid(T);
+            return find(typevect.begin(), typevect.end(), type) != typevect.end();
+        }
+
+        int Partition(vector<T>* vect, int left, int right){
+            int pivotIndex = left + (right - left) / 2;
+            T pivot = vect->at(pivotIndex);
+
+            T Temp;
+            int i = left;
+            int j = right;
+
+            while(i <= j){
+                while(vect->at(i) < pivot) i++;
+                while(vect->at(j) > pivot) j--;
+                Temp = vect->at(i);
+                vect->at(i) = vect->at(j);
+                vect->at(j) = Temp;
+                j--;
+                i++;
+
+            }
+            return i;
+        }
+
+        void QuickSort(vector<T>* vect, int left, int right){
+            if(left < right){
+                int pivotIndex = Partition(vect, left, right);
+                QuickSort(vect, left, pivotIndex - 1);
+                QuickSort(vect, pivotIndex, right);
+            }
+        }
 
     public:
         List(){
@@ -103,7 +145,7 @@ class List
         }
 
         /** Removes the element at the given index from the List. **/
-        void Remove(int index){
+        void Remove(unsigned short index){
             _items.erase(_items.begin() + index);
             UpdateSize();
         }
@@ -146,9 +188,19 @@ class List
             UpdateSize();
         }
 
+        /** Sorts a numeric List using the QuickSort strategy. Does nothing if it's not numeric. **/
+        void Sort(){
+            if(!IsNumericList()) return;
+            QuickSort(&_items, 0, _items.size() - 1);
+        }
+
         /** Returns the first element of the sequence. **/
         T First(){
             return _items[0];
+        }
+
+        T At(int i){
+            return this[i];
         }
 
         bool IsEmpty(){
@@ -181,17 +233,30 @@ class List
             return true;
         }
 
-        /** Takes a List and returns a List of elements that exist in both of them. **/
+        /** Takes a List and returns a List of their unified elements. **/
         List<T> UNION(List<T> second){
             List<T> Union;
             for(int i = 0; i < Size; i++){
-                T current = _items[i];
-                for(int j = 0; j < second.GetSize(); j++){
-                    if(current == second[j]) Union.Add(current);
-                }
+                Union.Add(_items[i]);
+            }
+            for(int j = 0; j < second.GetSize(); j++){
+                Union.Add(second[j]);
             }
             Union.RemoveDuplicates();
             return Union;
+        }
+
+        /** Takes a List and returns a List of elements that exist in both. **/
+        List<T> INTERSECTION(List<T> second){
+            List<T> Intersection;
+            for(int i = 0; i < Size; i++){
+                T current = _items[i];
+                for(int j = 0; j < second.GetSize(); j++){
+                    if(current == second[j]) Intersection.Add(current);
+                }
+            }
+            Intersection.RemoveDuplicates();
+            return Intersection;
         }
 
         /** Returns the element at the specified index.

@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1621275232 source:x:\programozás\programozás\list\list\main.cpp
+1621530970 source:x:\programozás\programozás\list\list\main.cpp
 	<iostream>
 	"List.h"
 
 1620204278 source:x:\programozás\programozás\list\list\src\list.cpp
 
-1621275349 x:\programozás\programozás\list\list\include\list.h
+1621610432 x:\programozás\programozás\list\list\include\list.h
 	<vector>
 	<algorithm>
 	<set>
+	<typeindex>
 
 1620288692 source:x:\programozás\programozás\list\list\include\list.cpp
 	<vector>

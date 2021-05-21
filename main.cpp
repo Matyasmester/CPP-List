@@ -3,13 +3,17 @@
 
 using namespace std;
 
+void Print(int val){
+    cout << val << " ";
+}
+
 void Print(char val){
     cout << val << " ";
 }
 
 int main()
 {
-    vector<char> arr = {'a', 'b', 'c', 'f', 'g', 'h', 'i', 'j', 'k', 'a', 'b', 'c', 'f', 'g', 'h', 'i', 'j', 'k', '4', '8', '9'};
+    /*vector<char> arr = {'a', 'b', 'c', 'f', 'g', 'h', 'i', 'j', 'k', 'a', 'b', 'c', 'f', 'g', 'h', 'i', 'j', 'k', '4', '8', '9'};
     List<char> MyList;
     MyList.Add('d');
     MyList.Add('e');
@@ -25,7 +29,7 @@ int main()
     cout << "Removing element at: " << At << ", which is: " << Elem << endl;
     MyList.Remove(At);
     cout << "New element at " << At << ": " << MyList[At] << endl;
-    cout << "Contains e: " << MyList.Contains('e') << endl;
+    cout << "Contains e: " << MyList.Contains('e') << endl;                     // Generic functions unit tests
     cout << "Last index of j: " << MyList.LastIndexOf('j') << endl;
     MyList.RemoveAll('a');
     cout << "Contains a: " << MyList.Contains('a') << endl;
@@ -45,7 +49,19 @@ int main()
     cout << "Union of two lists:" << endl;
     UNION.ForEach(Print);
 
-    delete &MyList;
+    delete &MyList;*/
+
+    List<int> numList;
+    numList.Add(2);
+    numList.Add(6);
+    numList.Add(5);             // Sorting unit tests
+    numList.Add(3);
+    numList.Add(8);
+    numList.Add(7);
+    numList.Add(1);
+    numList.Add(0);
+    numList.Sort();
+    numList.ForEach(Print);
 
     return 0;
 }
